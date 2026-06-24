@@ -1,0 +1,30 @@
+# Data files
+data/
+*.csv
+*.zip
+*.rar
+*.7z
+
+# Generated outputs
+outputs/
+salida/
+salida_contenedor/
+
+# Jupyter
+.ipynb_checkpoints/
+*.nbconvert.ipynb
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Virtual environments
+venv/
+.env/
+.venv/
+
+# OS files
+.DS_Store
+
+# Logs
+*.log

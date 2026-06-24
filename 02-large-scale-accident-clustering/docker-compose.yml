@@ -1,0 +1,16 @@
+services:
+  notebook_rodo:
+    build: .
+    container_name: notebook_rodo
+    volumes:
+      - .:/app
+    working_dir: /app
+
+    deploy:
+      resources:
+        limits:
+          memory: 32G
+          # cpus: "8"
+        reservations:
+          memory: 25G
+          # cpus: "4"
