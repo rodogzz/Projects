@@ -1,15 +1,15 @@
 FROM python:3.10-slim
 
-# --- Args para user no-root (puedes sobreescribir desde compose) ---
-ARG USERNAME=user3
-ARG USER_UID=1008
-ARG USER_GID=1008
+# Non-root user configuration
+ARG USERNAME=appuser
+ARG USER_UID=1000
+ARG USER_GID=1000
 
 ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1 \
     MPLBACKEND=Agg
 
-# Dependencias del sistema (scipy / numpy / tensorflow suelen requerir estas libs)
+# System dependencies required by scientific Python packages
 RUN apt-get update && apt-get install -y --no-install-recommends \
     build-essential \
     gcc \
@@ -21,23 +21,25 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libsm6 \
     libxext6 \
     libxrender1 \
+    libgomp1 \
  && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
 
-# Instala dependencias Python
+# Install Python dependencies first to improve Docker layer caching
 COPY requirements.txt /app/requirements.txt
 RUN pip install --no-cache-dir -r /app/requirements.txt
 
-# Copia tu script
-COPY Proyecto_Final.ipynb /app/Proyecto_Final.ipynb
+# Copy project files
+COPY large_scale_accident_clustering.ipynb /app/large_scale_accident_clustering.ipynb
+COPY README.md /app/README.md
 
-# Crea usuario/grupo no-root
+# Create non-root user and output directory
 RUN groupadd --gid ${USER_GID} ${USERNAME} \
  && useradd --uid ${USER_UID} --gid ${USER_GID} -m ${USERNAME} \
- && mkdir -p /app/output /app/tuner \
+ && mkdir -p /app/outputs \
  && chown -R ${USER_UID}:${USER_GID} /app
 
 USER ${USERNAME}
 
-CMD ["jupyter", "execute", "Proyecto_Final.ipynb"]
+CMD ["jupyter", "execute", "large_scale_accident_clustering.ipynb"]

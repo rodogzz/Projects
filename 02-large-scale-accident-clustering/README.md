@@ -1,6 +1,6 @@
 # Large-Scale Traffic Accident Clustering
 
-This project applies unsupervised learning techniques to analyze and cluster large-scale traffic accident records from the **US Accidents** dataset. The main objective is to identify accident patterns using geographical, weather-related, road-condition, and traffic-control features.
+This project applies unsupervised learning techniques to analyze and cluster large-scale traffic accident records from the **US Accidents** dataset. The main objective is to identify accident patterns using geographical, weather-related, road-condition, and traffic-control infrastructure features.
 
 The project compares density-based and hierarchical clustering approaches after preprocessing the data and applying dimensionality reduction with Principal Component Analysis (PCA).
 
@@ -21,7 +21,7 @@ The workflow includes:
 * Clustering with HDBSCAN.
 * Clustering with Ward hierarchical clustering.
 * Evaluation using internal clustering metrics.
-* Visualization of clustering results.
+* Visualization and interpretation of clustering results.
 
 ---
 
@@ -64,7 +64,7 @@ The clustering process uses a subset of numerical, geographical, weather-related
 ]
 ```
 
-These features were selected to represent accident location, weather conditions, visibility, road characteristics, and nearby traffic-control elements.
+These features were selected to represent accident location, weather conditions, visibility, road characteristics, and nearby traffic-control infrastructure.
 
 ---
 
@@ -111,19 +111,21 @@ One advantage of HDBSCAN is that it can identify noise points, assigning them th
 
 This is especially useful for accident data, where some records may behave as outliers or isolated observations.
 
+The project also includes an additional HDBSCAN experiment without geographical coordinates in order to evaluate how strongly latitude and longitude influence the resulting cluster structure.
+
 ---
 
 ### 4. Ward Hierarchical Clustering
 
-Ward hierarchical clustering is also applied to evaluate a fixed-number clustering approach.
+Ward hierarchical clustering is also applied as a fixed-cluster comparison approach.
 
-Different values of `k` are tested, and clustering quality is compared using internal validation metrics.
+Different values of `k` are tested, and clustering quality is compared using internal validation metrics. Since hierarchical clustering is computationally expensive for very large datasets, this experiment is performed on a smaller sample.
 
 ---
 
 ## Evaluation Metrics
 
-The project uses internal clustering metrics to evaluate the quality of the generated clusters:
+The project uses internal clustering metrics to evaluate the quality of the generated clusters.
 
 ### Silhouette Score
 
@@ -145,19 +147,29 @@ Higher values generally indicate better-defined clusters.
 
 ---
 
+## Main Results
+
+| Experiment                               |  Number of Clusters | Noise Ratio | Notes                                                                                       |
+| ---------------------------------------- | ------------------: | ----------: | ------------------------------------------------------------------------------------------- |
+| HDBSCAN with geographical coordinates    |                 114 |      29.71% | Clusters are strongly influenced by spatial location.                                       |
+| HDBSCAN without geographical coordinates |                 134 |      45.68% | More records are classified as noise, suggesting weaker non-geographical density structure. |
+| Ward hierarchical clustering             | 8 selected clusters |         N/A | Used as a fixed-cluster comparison on a smaller sample.                                     |
+
+The results suggest that geographical coordinates play an important role in the density structure of the accident records. When coordinates are removed, HDBSCAN identifies more clusters but also classifies a larger proportion of points as noise. Ward hierarchical clustering provides a complementary fixed-cluster perspective, although it requires a smaller sample due to computational constraints.
+
+---
+
 ## Repository Structure
 
 ```text
 .
-├── Proyecto_Final.ipynb
+├── large_scale_accident_clustering.ipynb
 ├── README.md
 ├── requirements.txt
 ├── Dockerfile
 ├── docker-compose.yml
 ├── data/
-├── outputs/
-├── salida/
-└── salida_contenedor/
+└── outputs/
 ```
 
 The following folders are ignored by Git:
@@ -165,8 +177,6 @@ The following folders are ignored by Git:
 ```text
 data/
 outputs/
-salida/
-salida_contenedor/
 ```
 
 This avoids uploading large datasets and generated output files to the repository.
@@ -204,7 +214,7 @@ pip install -r requirements.txt
 Open the notebook:
 
 ```bash
-jupyter notebook Proyecto_Final.ipynb
+jupyter notebook large_scale_accident_clustering.ipynb
 ```
 
 Then run the cells sequentially.
@@ -237,23 +247,19 @@ This provides a reproducible environment for running the project without manuall
 
 ---
 
-## Outputs
+## Outputs and Reproducibility
 
-The project generates visualizations and clustering results during execution.
-
-Generated files should be saved in an output directory such as:
+The project generates visualizations and clustering results during execution. Generated files are saved in:
 
 ```text
 outputs/
 ```
 
-or, depending on the current notebook version:
+The dataset and generated output files are intentionally excluded from version control through `.gitignore`.
 
-```text
-salida/
-```
+The notebook includes previously generated outputs to document the results obtained during execution. Due to the computational cost and the need for a high-resource environment, generated output folders are not included in this repository. However, the notebook preserves the main tables, figures, and clustering results for review.
 
-These folders are ignored by Git because the results can be regenerated by running the notebook.
+To reproduce the full experiment, download the dataset, place it under `data/US_Accidents_March23.csv`, install the dependencies, and run the notebook in a suitable local or server environment.
 
 ---
 
@@ -274,7 +280,7 @@ These folders are ignored by Git because the results can be regenerated by runni
 
 ## Project Relevance
 
-This project demonstrates the application of unsupervised machine learning methods to large-scale real-world data. It includes important machine learning workflow components such as preprocessing, dimensionality reduction, clustering, validation, and visualization.
+This project demonstrates the application of unsupervised machine learning methods to large-scale real-world data. It includes important machine learning workflow components such as preprocessing, dimensionality reduction, clustering, validation, visualization, and interpretation.
 
 The project is relevant for:
 
@@ -284,30 +290,6 @@ The project is relevant for:
 * Pattern discovery in traffic accident data.
 * Clustering evaluation.
 * Reproducible machine learning workflows using Docker.
-
----
-
-## Notes
-
-The dataset is not included in this repository due to its size.
-
-To reproduce the results, download the dataset and place it in:
-
-```text
-data/US_Accidents_March23.csv
-```
-
-The folders containing data and generated outputs are intentionally excluded from version control through `.gitignore`.
-
----
-
-## Outputs and Reproducibility
-
-The notebook includes previously generated outputs to document the results obtained during execution.
-
-Due to the computational cost and the need for a high-resource environment, the generated output folders are not included in this repository. However, the notebook preserves the main tables, figures, and clustering results for review.
-
-To reproduce the full experiment, download the dataset, place it under `data/US_Accidents_March23.csv`, install the dependencies, and run the notebook in a suitable local or server environment.
 
 ---
 

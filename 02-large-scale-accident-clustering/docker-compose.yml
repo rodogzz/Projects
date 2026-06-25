@@ -1,16 +1,10 @@
 services:
-  notebook_rodo:
+  accident_clustering:
     build: .
-    container_name: notebook_rodo
+    container_name: accident_clustering
+    working_dir: /app
     volumes:
       - .:/app
-    working_dir: /app
-
-    deploy:
-      resources:
-        limits:
-          memory: 32G
-          # cpus: "8"
-        reservations:
-          memory: 25G
-          # cpus: "4"
+    mem_limit: 32g
+    shm_size: 2g
+    command: jupyter execute large_scale_accident_clustering.ipynb
