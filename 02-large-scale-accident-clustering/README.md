@@ -163,7 +163,8 @@ The results suggest that geographical coordinates play an important role in the 
 
 ```text
 .
-├── large_scale_accident_clustering.ipynb
+├── notebook/
+│   └── large_scale_accident_clustering.ipynb
 ├── README.md
 ├── requirements.txt
 ├── Dockerfile
@@ -171,6 +172,7 @@ The results suggest that geographical coordinates play an important role in the 
 ├── data/
 └── outputs/
 ```
+
 
 The following folders are ignored by Git:
 
