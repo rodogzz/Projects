@@ -214,7 +214,7 @@ pip install -r requirements.txt
 Open the notebook:
 
 ```bash
-jupyter notebook large_scale_accident_clustering.ipynb
+jupyter notebook notebook/large_scale_accident_clustering.ipynb
 ```
 
 Then run the cells sequentially.

@@ -31,7 +31,7 @@ COPY requirements.txt /app/requirements.txt
 RUN pip install --no-cache-dir -r /app/requirements.txt
 
 # Copy project files
-COPY large_scale_accident_clustering.ipynb /app/large_scale_accident_clustering.ipynb
+COPY notebook/large_scale_accident_clustering.ipynb /app/notebook/large_scale_accident_clustering.ipynb
 COPY README.md /app/README.md
 
 # Create non-root user and output directory
@@ -42,4 +42,4 @@ RUN groupadd --gid ${USER_GID} ${USERNAME} \
 
 USER ${USERNAME}
 
-CMD ["jupyter", "execute", "large_scale_accident_clustering.ipynb"]
+CMD ["jupyter", "execute", "notebook/large_scale_accident_clustering.ipynb"]

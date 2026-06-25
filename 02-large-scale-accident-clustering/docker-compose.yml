@@ -7,4 +7,4 @@ services:
       - .:/app
     mem_limit: 32g
     shm_size: 2g
-    command: jupyter execute large_scale_accident_clustering.ipynb
+    command: jupyter execute notebook/large_scale_accident_clustering.ipynb
