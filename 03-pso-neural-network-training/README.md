@@ -83,7 +83,7 @@ $$
 W_2 \in \mathbb{R}^{4 \times 3}
 $$
 
-where (W_1) maps the input features to the hidden layer, and (W_2) maps the hidden representation to the output layer.
+where $W_1$ maps the input features to the hidden layer, and $W_2$ maps the hidden representation to the output layer.
 
 For simplicity, this implementation does not include bias terms.
 
