@@ -75,13 +75,13 @@ The model uses the sigmoid activation function in both the hidden and output lay
 
 Each input sample is propagated through the network using two weight matrices:
 
-[
+$$
 W_1 \in \mathbb{R}^{13 \times 4}
-]
+$$
 
-[
+$$
 W_2 \in \mathbb{R}^{4 \times 3}
-]
+$$
 
 where (W_1) maps the input features to the hidden layer, and (W_2) maps the hidden representation to the output layer.
 
