@@ -93,10 +93,9 @@ the augmented vector is defined as:
 $$
 \tilde{\mathbf{x}}_i =
 \begin{bmatrix}
-1 \
+1 \\
 \mathbf{x}_i
 \end{bmatrix}
-\in \mathbb{R}^{d+1}
 $$
 
 For a problem with (K) classes, the model learns one weight vector per class:
