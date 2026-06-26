@@ -93,43 +93,34 @@ the augmented vector is defined as:
 $$
 \tilde{\mathbf{x}}_i =
 \begin{bmatrix}
-1 \
+1 \\
 \mathbf{x}_i
 \end{bmatrix}
 \in \mathbb{R}^{d+1}
 $$
 
-For a problem with (K) classes, the model learns one weight vector per class:
+For a problem with $K$ classes, the model learns one weight vector per class:
 
 $$
 \mathbf{w}_k \in \mathbb{R}^{d+1}
 $$
 
-The score assigned to class (k) is:
+The score assigned to class $k$ is:
 
 $$
-g_k(\mathbf{x}_i)
-=================
-
-\mathbf{w}_k^\top \tilde{\mathbf{x}}_i
+g_k(\mathbf{x}_i) = \mathbf{w}_k^\top \tilde{\mathbf{x}}_i
 $$
 
 The predicted class is selected as the class with the highest score:
 
 $$
-\hat{y}_i
-=========
-
-\arg\max_k g_k(\mathbf{x}_i)
+\hat{y}_i = \arg\max_k g_k(\mathbf{x}_i)
 $$
 
-During training, the model compares the true class (k) against every incorrect class (j \neq k). The margin for each comparison is defined as:
+During training, the model compares the true class $k$ against every incorrect class $j \neq k$. The margin for each comparison is defined as:
 
 $$
-\Delta_{k,j}
-============
-
-(\mathbf{w}_k - \mathbf{w}_j)^\top \tilde{\mathbf{x}}_i
+\Delta_{k,j} = (\mathbf{w}_k - \mathbf{w}_j)^\top \tilde{\mathbf{x}}_i
 $$
 
 A positive margin means that the score of the correct class is greater than the score of the competing incorrect class.
@@ -137,39 +128,24 @@ A positive margin means that the score of the correct class is greater than the 
 The logistic loss for each comparison is:
 
 $$
-L_{k,j}
-=======
-
-\log\left(1 + e^{-\Delta_{k,j}}\right)
+L_{k,j} = \log\left(1 + e^{-\Delta_{k,j}}\right)
 $$
 
 The full objective function is obtained by summing this loss over all training samples and all incorrect classes:
 
 $$
-J(W)
-====
-
-\sum_{i=1}^{n}
-\sum_{j \neq k}
-\log\left(1 + e^{-\Delta_{k,j}}\right)
+J(W) = \sum_{i=1}^{n} \sum_{j \neq k} \log\left(1 + e^{-\Delta_{k,j}}\right)
 $$
 
-where (k) is the true class of sample (i).
+where $k$ is the true class of sample $i$.
 
 The weights are updated using gradient descent:
 
 $$
-W^{(t+1)}
-=========
-
-## W^{(t)}
-
-\eta
-\frac{\partial J(W)}{\partial W}
+W^{(t+1)} = W^{(t)} - \eta \frac{\partial J(W)}{\partial W}
 $$
 
-where (\eta) is the learning rate.
-
+where $\eta$ is the learning rate.
 ---
 
 ## Experimental Results
